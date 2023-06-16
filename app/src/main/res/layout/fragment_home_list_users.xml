@@ -31,46 +31,101 @@
         android:text="STARGAZERS"/>
 
     <LinearLayout
+        android:layout_marginTop="5dp"
         android:id="@+id/search_ll"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:weightSum="1.0"
         android:orientation="horizontal">
-        <EditText
-            android:id="@+id/edittext_owner_name"
-            android:padding="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Owner name"
-            android:imeOptions="actionNext"
-            android:textColor="@color/primary"
-            android:background="@color/text_color_primary"/>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_weight="0.4"
+            android:id="@+id/textinput_owner"
+            android:hint="Owner"
+            android:textColorHint="@color/hint"
+            app:errorEnabled="true"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edittext_owner_name"
+                android:padding="10dp"
+                android:lines="1"
+                android:maxLines="1"
+                android:inputType="text"
+                android:ellipsize="start"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionNext"
+                android:textColor="@color/primary"
+                android:background="@color/text_color_primary"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/edittext_repository_name"
-            android:imeOptions="actionDone"
-            android:padding="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Repository name"
-            android:textColor="@color/primary"
-            android:background="@color/text_color_primary"/>
 
-        <Button
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_weight="0.4"
+            android:id="@+id/textinput_repository"
+            android:hint="Repository"
+            android:textColorHint="@color/hint"
+            app:errorEnabled="true"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edittext_repository_name"
+                android:imeOptions="actionSearch"
+                android:padding="10dp"
+                android:lines="1"
+                android:inputType="text"
+                android:maxLines="1"
+                android:ellipsize="start"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/primary"
+                android:background="@color/text_color_primary"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <ImageView
+            android:layout_gravity="center_vertical"
+            android:layout_weight="0.2"
+            android:id="@+id/search_button"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Cerca"
-            android:id="@+id/search_button"/>
+            android:src="@drawable/baseline_search_24"/>
+
     </LinearLayout>
 
+    <TextView
+        app:layout_constraintTop_toBottomOf="@id/search_ll"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:id="@+id/textview_default"
+        android:layout_width="wrap_content"
+        android:text="Ancora nessuna ricerca effettuata!"
+        android:layout_height="wrap_content" />
+
+    <!-- Loader -->
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/loader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/search_ll"
+        android:layout_marginTop="30dp"
+        android:indeterminateOnly="true"
+        android:indeterminateTint="@color/primary" />
+
     <androidx.recyclerview.widget.RecyclerView
+        android:visibility="visible"
         android:id="@+id/recyclerview_home_users"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/search_ll"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constrainedHeight="true"
+        android:layout_marginBottom="20dp"
         android:orientation="vertical"
         tools:listitem="@layout/home_user_list_row"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>

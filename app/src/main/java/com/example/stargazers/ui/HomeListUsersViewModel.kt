@@ -1,6 +1,5 @@
 package com.example.stargazers.ui
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -20,7 +19,14 @@ class HomeListUsersViewModel(private val starGazersRepository: StarGazersReposit
     private val _users = MutableLiveData<Event<ArrayList<User>>>()
     var users : LiveData<Event<ArrayList<User>>> = _users
 
+    private val _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean> = _loading
+
     private var nextPage = 1
+
+    fun initLoading() {
+        _loading.postValue(true)
+    }
 
     fun getNextPage(): Int {
         return nextPage
@@ -31,12 +37,12 @@ class HomeListUsersViewModel(private val starGazersRepository: StarGazersReposit
     }
 
     fun getStarGazersList(ownerName: String, repositoryName: String, page: Int?, limit: Int?) {
-        Log.d("ciao mi cjah", "cjaids")
+        _loading.postValue(true)
         viewModelScope.launch {
             val repositoryResponse =
                 responseHandlerJsonArray ({starGazersRepository.getListOfStarGazers(ownerName, repositoryName,
                     page ?: nextPage, limit)}, gson)
-
+            _loading.postValue(false)
             when(repositoryResponse) {
                 is APIResponseJsonArray.Error -> {
                     mErrorModel.postValue(repositoryResponse.error)

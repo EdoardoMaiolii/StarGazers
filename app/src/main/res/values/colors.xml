@@ -5,4 +5,5 @@
     <color name="text_color_secondary">#3a3d42</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="hint">#808080</color>
 </resources>

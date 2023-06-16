@@ -2,4 +2,6 @@
     <string name="app_name">StarGazers</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="no_repo_found">Nessuna repository trovata</string>
+    <string name="repo_has_no_stargazers">Questa repository non ha ancora stargazers!</string>
 </resources>
